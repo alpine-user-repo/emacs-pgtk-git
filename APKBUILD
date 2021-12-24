@@ -13,18 +13,21 @@ makedepends="git autoconf automake linux-headers gawk
 	libxml2-dev pango-dev tiff-dev libjpeg-turbo-dev ncurses-dev
 	ncurses-libs gnutls-dev libxaw-dev gmp-dev harfbuzz-dev jansson-dev"
 	
-source="alloc.patch"
+source=""
 _pkgname='emacs'
 _repo="git://git.sv.gnu.org/emacs.git"
+builddir="$srcdir/${_pkgname}"
+
 prepare() {
     git clone --depth=1 "${_repo}" "$srcdir/${_pkgname}"
+    cd "$builddir"
     default_prepare
     cd "$srcdir/${_pkgname}"
     ./autogen.sh	
 }
 
 build() {
-	cd "$srcdir/_pkgname"
+	cd "$srcdir/${_pkgname}"
 	CFLAGS=-fno-pie \
 	LDFLAGS=-no-pie \
 	./configure \
