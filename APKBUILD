@@ -1,5 +1,3 @@
-_pkgname=emacs
-repo="git://git.sv.gnu.org/emacs.git"
 pkgname=emacs-pgtk-git
 provides='emacs'
 pkgver='_git'
@@ -9,23 +7,23 @@ arch="all !s390x !mips !mips64"
 url="https://www.gnu.org/software/emacs/emacs.html"
 license="GPL-3.0-or-later"
 depends="hicolor-icon-theme wayland desktop-file-utils"
-makedepends="autoconf automake linux-headers gawk
+makedepends="git autoconf automake linux-headers gawk
 	librsvg-dev giflib-dev libxpm-dev gtk+3.0-dev alsa-lib-dev
 	glib-dev fontconfig-dev libpng-dev cairo-dev texinfo
 	libxml2-dev pango-dev tiff-dev libjpeg-turbo-dev ncurses-dev
 	ncurses-libs gnutls-dev libxaw-dev gmp-dev harfbuzz-dev jansson-dev"
 	
 source="alloc.patch"
-builddir="$srcdir"/"$_pkgname"
+_pkgname='emacs'
+_repo="git://git.sv.gnu.org/emacs.git"
 prepare() {
         default_prepare
-	cd "$srcdir"
-	git clone --depth=1 "${repo}"
+	git clone --depth=1 "${_repo}" "$srcdir/$_pkgname"
 	./autogen.sh	
 }
 
 build() {
-	cd "$builddir"
+	cd "$srcdir/_pkgname"
 	CFLAGS=-fno-pie \
 	LDFLAGS=-no-pie \
 	./configure \
