@@ -6,12 +6,12 @@ pkgdesc="The extensible, customizable, self-documenting real-time display editor
 arch="all !s390x !mips !mips64"
 url="https://www.gnu.org/software/emacs/emacs.html"
 license="GPL-3.0-or-later"
-depends="hicolor-icon-theme wayland desktop-file-utils"
+depends="hicolor-icon-theme wayland desktop-file-utils libgccjit"
 makedepends="git autoconf automake linux-headers gawk
 	librsvg-dev giflib-dev libxpm-dev gtk+3.0-dev alsa-lib-dev
 	glib-dev fontconfig-dev libpng-dev cairo-dev texinfo
 	libxml2-dev pango-dev tiff-dev libjpeg-turbo-dev ncurses-dev
-	ncurses-libs gnutls-dev libxaw-dev gmp-dev harfbuzz-dev jansson-dev"
+	ncurses-libs gnutls-dev libxaw-dev gmp-dev harfbuzz-dev jansson-dev libgccjit-dev"
 	
 source=""
 _pkgname='emacs'
@@ -46,6 +46,7 @@ build() {
 		--with-cairo \
 		--with-xft \
 		--with-tiff=no \
+		--with-native-compilation \
 		--with-jpeg=yes
 	make
 }
