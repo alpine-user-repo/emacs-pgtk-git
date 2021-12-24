@@ -17,9 +17,10 @@ source="alloc.patch"
 _pkgname='emacs'
 _repo="git://git.sv.gnu.org/emacs.git"
 prepare() {
-        default_prepare
-	git clone --depth=1 "${_repo}" "$srcdir/$_pkgname"
-	./autogen.sh	
+    git clone --depth=1 "${_repo}" "$srcdir/${_pkgname}"
+    default_prepare
+    cd "$srcdir/${_pkgname}"
+    ./autogen.sh	
 }
 
 build() {
